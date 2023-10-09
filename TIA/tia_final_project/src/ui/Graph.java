@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package ui;
 
-/**
- *
- * @author crdzbird
- */
 import com.opencsv.CSVWriter;
 import java.awt.Color;
 import java.io.File;
@@ -23,28 +15,29 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-/**
- * Represents a graph showing the evolution of fitness over iterations.
- */
 public class Graph {
+
     private static final double RANGE_MIN_FACTOR = 0.995;
     private static final double RANGE_MAX_FACTOR = 1.005;
-
     private static final Logger LOGGER = Logger.getLogger(Graph.class.getName());
 
-    private final XYSeries series;
+    private final XYSeries seriesGenetic;
+    private final XYSeries seriesMemetic;
+
     private final XYSeriesCollection dataset;
     private final JFreeChart chart;
     private final ChartFrame frame;
     private double min;
     private double max;
 
-    /**
-     * Initializes a new Graph.
-     */
     public Graph() {
-        this.series = new XYSeries("Fitness");
-        this.dataset = new XYSeriesCollection(this.series);
+        this.seriesGenetic = new XYSeries("Genetic Fitness");
+        this.seriesMemetic = new XYSeries("Memetic Fitness");
+        
+        this.dataset = new XYSeriesCollection();
+        dataset.addSeries(this.seriesGenetic);
+        dataset.addSeries(this.seriesMemetic);
+        
         this.chart = ChartFactory.createXYLineChart(
                 "Chinese Postman Problem - Fitness Evolution",
                 "Iteration",
@@ -65,14 +58,10 @@ public class Graph {
 
         this.min = Double.MAX_VALUE;
         this.max = Double.MIN_VALUE;
-
+        
         LOGGER.info("Graph initialized and displayed.");
     }
 
-    /**
-     * Styles the given chart.
-     * @param chart the chart to style.
-     */
     private void styleChart(JFreeChart chart) {
         XYPlot plot = chart.getXYPlot();
         plot.getRangeAxis().setAutoRange(true);
@@ -81,58 +70,55 @@ public class Graph {
         plot.setRangeGridlinePaint(Color.white);
     }
 
-    /**
-     * Adds data to the graph.
-     * @param iter the iteration number.
-     * @param fitness the fitness value.
-     */
-    public synchronized void addData(int iter, double fitness) {
+    public synchronized void addData(int iter, double fitnessGenetic, double fitnessMemetic) {
+        updateMinMax(fitnessGenetic);
+        updateMinMax(fitnessMemetic);
+
+        (new Thread(() -> {
+            seriesGenetic.add(iter, fitnessGenetic);
+            seriesMemetic.add(iter, fitnessMemetic);
+            chart.getXYPlot().getRangeAxis().setRange(min * RANGE_MIN_FACTOR, max * RANGE_MAX_FACTOR);
+            LOGGER.log(Level.INFO, "Data added to graph: Iteration = {0}, Fitness Genetic = {1}, Fitness Memetic = {2}", 
+                                    new Object[]{iter, fitnessGenetic, fitnessMemetic});
+        })).start();
+    }
+
+    private void updateMinMax(double fitness) {
         if (min > fitness) {
             min = fitness;
         }
         if (max < fitness) {
             max = fitness;
         }
-
-        (new Thread(() -> {
-            series.add(iter, fitness);
-            chart.getXYPlot().getRangeAxis().setRange(min * RANGE_MIN_FACTOR, max * RANGE_MAX_FACTOR);
-            LOGGER.log(Level.INFO, "Data added to graph: Iteration = {0}, Fitness = {1}", new Object[]{iter, fitness});
-        })).start();
     }
 
-    /**
-     * Writes the graph data to a file.
-     * @param fileName the name of the file.
-     * @throws IOException if an I/O error occurs.
-     */
     public void writeGraphFile(String fileName) throws IOException {
         try (CSVWriter writer = new CSVWriter(new FileWriter(new File(fileName)))) {
-            String[] header = {"Iteration", "Fitness"};
+            String[] header = {"Iteration", "Fitness Genetic", "Fitness Memetic"};
             writer.writeNext(header);
 
-            for (int i = 0; i < series.getItemCount(); i++) {
-                double x = series.getX(i).doubleValue();
-                double y = series.getY(i).doubleValue();
-                String[] data = {String.valueOf(x), String.valueOf(y)};
+            int itemCount = Math.max(seriesGenetic.getItemCount(), seriesMemetic.getItemCount());
+            for (int i = 0; i < itemCount; i++) {
+                double xGenetic = i < seriesGenetic.getItemCount() ? seriesGenetic.getX(i).doubleValue() : Double.NaN;
+                double yGenetic = i < seriesGenetic.getItemCount() ? seriesGenetic.getY(i).doubleValue() : Double.NaN;
+
+                double xMemetic = i < seriesMemetic.getItemCount() ? seriesMemetic.getX(i).doubleValue() : Double.NaN;
+                double yMemetic = i < seriesMemetic.getItemCount() ? seriesMemetic.getY(i).doubleValue() : Double.NaN;
+                
+                String[] data = {String.valueOf(i), String.valueOf(yGenetic), String.valueOf(yMemetic)};
                 writer.writeNext(data);
             }
             LOGGER.log(Level.INFO, "Graph data written to file: {0}", fileName);
         }
     }
 
-    /**
-     * Toggles the graph's visibility.
-     */
     public void toggleVisibility() {
         this.frame.setVisible(!this.frame.isVisible());
     }
 
-    /**
-     * Clears the graph data.
-     */
     public void clearData() {
-        this.series.clear();
+        this.seriesGenetic.clear();
+        this.seriesMemetic.clear();
         LOGGER.info("Graph data cleared.");
     }
 }

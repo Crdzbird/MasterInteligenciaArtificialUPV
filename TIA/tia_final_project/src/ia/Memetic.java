@@ -63,6 +63,6 @@ public class Memetic<I extends IndividualInterface, P extends PopulationInterfac
         }
         IndividualInterface best = p.retrieveBestIndividual();
         LOGGER.log(Level.INFO, "\nIteration: {0}/{1}\t{2}", new Object[]{iteration, total, best});
-        graph.addData(iteration, best.getFitness());
+        graph.addData(iteration, 0, best.getFitness());
     }
 }

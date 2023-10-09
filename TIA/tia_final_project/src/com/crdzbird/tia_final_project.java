@@ -78,10 +78,11 @@ public class tia_final_project {
 
         List<IndividualImplementation> initialPopulation = buildInitialPopulation(greedy);
         PopulationCopy population = new PopulationCopy(initialPopulation, new ElitismImplementation());
+                PopulationCopy populationMP = new PopulationCopy(initialPopulation, new ElitismImplementation());
         ui.Graph graph = new ui.Graph();
 
                 PopulationInterface<IndividualImplementation> lastGeneration = 
-                new Genetic<>(population, graph).execute(AppConfig.MAX_ITERATION);
+                new Genetic<>(population, populationMP, graph).executeWithMemetic(AppConfig.MAX_ITERATION);
 //        PopulationInterface<IndividualImplementation> lastGeneration = 
 //                (new Memetic<>(population, graph)).execute(
 //                        AppConfig.MAX_ITERATION, 
