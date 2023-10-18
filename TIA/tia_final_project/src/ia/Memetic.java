@@ -13,15 +13,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import repositories.IndividualInterface;
 import repositories.population.PopulationInterface;
-import ui.Graph;
+import ui.FitnessChart;
 
 public class Memetic<I extends IndividualInterface, P extends PopulationInterface<I>> {
     private static final Logger LOGGER = Logger.getLogger(Memetic.class.getName());
 
     private final PopulationInterface<I> population;
-    private final Graph graph;
+    private final FitnessChart graph;
 
-    public Memetic(PopulationInterface<I> population, Graph graph) {
+    public Memetic(PopulationInterface<I> population, FitnessChart graph) {
         this.population = population;
         this.graph = graph;
     }

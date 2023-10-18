@@ -16,18 +16,15 @@ import com.opencsv.CSVReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import configs.AppConfig;
 import ia.Genetic;
-import ia.Memetic;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import repositories.IndividualImplementation;
 import repositories.elitism.ElitismImplementation;
 import repositories.population.PopulationCopy;
-import repositories.population.PopulationImplementation;
 import repositories.population.PopulationInterface;
 
 public class tia_final_project {
@@ -79,7 +76,7 @@ public class tia_final_project {
         List<IndividualImplementation> initialPopulation = buildInitialPopulation(greedy);
         PopulationCopy population = new PopulationCopy(initialPopulation, new ElitismImplementation());
                 PopulationCopy populationMP = new PopulationCopy(initialPopulation, new ElitismImplementation());
-        ui.Graph graph = new ui.Graph();
+        ui.FitnessChart graph = new ui.FitnessChart();
 
                 PopulationInterface<IndividualImplementation> lastGeneration = 
                 new Genetic<>(population, populationMP, graph).executeWithMemetic(AppConfig.MAX_ITERATION);

@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 import repositories.IndividualImplementation;
 import repositories.IndividualInterface;
 import repositories.population.PopulationInterface;
-import ui.Graph;
+import ui.FitnessChart;
 
 public class Genetic<I extends IndividualInterface, P extends PopulationInterface<I>> {
 
@@ -25,16 +25,16 @@ public class Genetic<I extends IndividualInterface, P extends PopulationInterfac
     private final PopulationInterface<I> population;
     private PopulationInterface<I> memeticPopulation;
     
-    private final Graph graph;
+    private final FitnessChart graph;
 
-    public Genetic(PopulationInterface<I> population, Graph graph) {
+    public Genetic(PopulationInterface<I> population, FitnessChart graph) {
         this.population = population;
         this.graph = graph;
     }
     
     
 
-    public Genetic(PopulationInterface<I> population, PopulationInterface<I> populationMemetic, Graph graph) {
+    public Genetic(PopulationInterface<I> population, PopulationInterface<I> populationMemetic, FitnessChart graph) {
         this.population = population;
         this.memeticPopulation = populationMemetic;
         this.graph = graph;

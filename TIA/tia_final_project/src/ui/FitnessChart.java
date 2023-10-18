@@ -15,11 +15,11 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-public class Graph {
+public class FitnessChart {
 
     private static final double RANGE_MIN_FACTOR = 0.995;
     private static final double RANGE_MAX_FACTOR = 1.005;
-    private static final Logger LOGGER = Logger.getLogger(Graph.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(FitnessChart.class.getName());
 
     private final XYSeries seriesGenetic;
     private final XYSeries seriesMemetic;
@@ -30,7 +30,7 @@ public class Graph {
     private double min;
     private double max;
 
-    public Graph() {
+    public FitnessChart() {
         this.seriesGenetic = new XYSeries("Genetic Fitness");
         this.seriesMemetic = new XYSeries("Memetic Fitness");
         
