@@ -1,7 +1,8 @@
 import 'dart:developer';
 
-import 'package:tia_genetic_memetic/repositories/individual/individual_interface.dart';
-import 'package:tia_genetic_memetic/repositories/population/population_interface.dart';
+import 'package:tia_genetic_memetic/config/app_config.dart';
+import 'package:tia_genetic_memetic/repositories/individual/individual_abstraction.dart';
+import 'package:tia_genetic_memetic/repositories/population/population_abstraction.dart';
 
 class Genetic<I extends IndividualInterface, P extends PopulationInterface<I>> {
   final P population;
@@ -37,10 +38,10 @@ class Genetic<I extends IndividualInterface, P extends PopulationInterface<I>> {
 
   void reportProgressWithMemetic<T>(PopulationInterface<I> p,
       PopulationInterface<I> mp, int iteration, int total) {
-    if (iteration % 10 == 0 || iteration == total - 1) {
+    if (iteration % AppConfig.popSize == 0 || iteration == total - 1) {
       IndividualInterface best = p.retrieveBestIndividual();
       IndividualInterface bestMP = mp.retrieveBestIndividual();
-      log('Iteration: $iteration/$total, Genetic: $best, Memetic: $bestMP');
+      log('Iteration: $iteration/$total - Genetic: $best, Memetic: $bestMP');
     }
   }
 }

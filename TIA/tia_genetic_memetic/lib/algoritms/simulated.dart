@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:tia_genetic_memetic/repositories/individual/individual_interface.dart';
+import 'package:tia_genetic_memetic/repositories/individual/individual_abstraction.dart';
 
 class Simulated<I extends IndividualInterface> {
   double temperature;

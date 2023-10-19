@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:tia_genetic_memetic/algoritms/simulated.dart';
 import 'package:tia_genetic_memetic/config/app_config.dart';
-import 'package:tia_genetic_memetic/repositories/individual/individual_interface.dart';
-import 'package:tia_genetic_memetic/repositories/population/population_interface.dart';
+import 'package:tia_genetic_memetic/repositories/individual/individual_abstraction.dart';
+import 'package:tia_genetic_memetic/repositories/population/population_abstraction.dart';
 
 class Memetic<I extends IndividualInterface, P extends PopulationInterface<I>> {
   final P population;

@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:tia_genetic_memetic/config/app_config.dart';
 import 'package:tia_genetic_memetic/models/graph.dart';
-import 'package:tia_genetic_memetic/repositories/individual/individual_interface.dart';
+import 'package:tia_genetic_memetic/repositories/individual/individual_abstraction.dart';
 
 class IndividualImplementation implements IndividualInterface<int> {
   static List<List<double>> distances = List.empty(growable: true);
@@ -159,5 +159,5 @@ class IndividualImplementation implements IndividualInterface<int> {
 
   @override
   String toString() =>
-      'Seed: 1633124807218,  Fitness: ${getFitness()}, Cities:  ${genotype.length},  CppIndividual{genotype=$genotype}';
+      'Seed: ${AppConfig.seed},  Fitness: ${getFitness()}, Cities:  ${genotype.length},  CppIndividual{genotype=$genotype}';
 }

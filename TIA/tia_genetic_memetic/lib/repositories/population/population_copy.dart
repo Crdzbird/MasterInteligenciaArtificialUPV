@@ -1,7 +1,7 @@
-import 'package:tia_genetic_memetic/repositories/elitism/elitism_interface.dart';
+import 'package:tia_genetic_memetic/repositories/elitism/elitism_abstraction.dart';
 import 'package:tia_genetic_memetic/repositories/individual/individual_implementation.dart';
 import 'package:tia_genetic_memetic/repositories/population/population_implementation.dart';
-import 'package:tia_genetic_memetic/repositories/population/population_interface.dart';
+import 'package:tia_genetic_memetic/repositories/population/population_abstraction.dart';
 
 class PopulationCopy
     extends PopulationImplementation<IndividualImplementation> {

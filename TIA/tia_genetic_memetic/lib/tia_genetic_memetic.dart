@@ -9,7 +9,7 @@ import 'package:tia_genetic_memetic/models/graph.dart';
 import 'package:tia_genetic_memetic/repositories/elitism/elitism_implementation.dart';
 import 'package:tia_genetic_memetic/repositories/individual/individual_implementation.dart';
 import 'package:tia_genetic_memetic/repositories/population/population_copy.dart';
-import 'package:tia_genetic_memetic/repositories/population/population_interface.dart';
+import 'package:tia_genetic_memetic/repositories/population/population_abstraction.dart';
 import 'package:tia_genetic_memetic/service/city_dao.dart';
 
 Future<void> main(List<String> arguments) async {
