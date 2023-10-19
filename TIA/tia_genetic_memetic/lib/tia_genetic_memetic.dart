@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:csv/csv.dart';
 import 'package:tia_genetic_memetic/algoritms/genetic.dart';
 import 'package:tia_genetic_memetic/config/app_config.dart';
 import 'package:tia_genetic_memetic/models/city.dart';

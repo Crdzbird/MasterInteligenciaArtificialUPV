@@ -84,12 +84,12 @@ class Graph {
   }
 
   void fullConnect(double bias) {
-    for (int i = 0; i < this.distances.length; i++) {
-      for (int j = 0; j < this.distances[i].length; j++) {
-        if (i != j && this.getDistance(i, j) < 0.0) {
-          double distance = this.evaluatePath(this.getPath(i, j)) * bias;
-          this.setDistance(i, j, distance);
-          this.setDistance(j, i, distance);
+    for (int i = 0; i < distances.length; i++) {
+      for (int j = 0; j < distances[i].length; j++) {
+        if (i != j && getDistance(i, j) < 0.0) {
+          double distance = evaluatePath(getPath(i, j)) * bias;
+          setDistance(i, j, distance);
+          setDistance(j, i, distance);
         }
       }
     }
@@ -99,7 +99,7 @@ class Graph {
     double cost = 0.0;
 
     for (int i = 0; i < path.length - 1; i++) {
-      cost += this.getDistance(path[i], path[i + 1]);
+      cost += getDistance(path[i], path[i + 1]);
     }
 
     return cost;
@@ -166,8 +166,8 @@ class Graph {
   List<int> getConnections(int vertex) {
     List<int> conn = [];
 
-    for (int i = 0; i < this.distances.length; i++) {
-      if (i != vertex && this.distances[vertex][i] >= 0.0) {
+    for (int i = 0; i < distances.length; i++) {
+      if (i != vertex && distances[vertex][i] >= 0.0) {
         conn.add(i);
       }
     }
@@ -176,8 +176,8 @@ class Graph {
   }
 
   List<List<double>> getDistanceMatrix() {
-    List<List<double>> dis = List.generate(this.distances.length,
-        (i) => List.from(this.distances[i])); // creates a copy of each row
+    List<List<double>> dis = List.generate(distances.length,
+        (i) => List.from(distances[i])); // creates a copy of each row
 
     return dis;
   }

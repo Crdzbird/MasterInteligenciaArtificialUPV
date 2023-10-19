@@ -129,8 +129,8 @@ class IndividualImplementation implements IndividualInterface<int> {
   @override
   IndividualInterface<int> copy() {
     IndividualImplementation ind = IndividualImplementation._empty();
-    ind.genotype.setAll(0, this.genotype);
-    ind.fitness = this.fitness;
+    ind.genotype.setAll(0, genotype);
+    ind.fitness = fitness;
     return ind;
   }
 
