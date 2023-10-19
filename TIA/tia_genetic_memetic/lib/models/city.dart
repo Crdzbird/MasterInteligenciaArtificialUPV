@@ -8,9 +8,7 @@ class City implements Comparable<City> {
   City(this.name, this.x, this.y);
 
   String get getName => name;
-
   double get getX => x;
-
   double get getY => y;
 
   static double euclideanDistance(City c1, City c2) {

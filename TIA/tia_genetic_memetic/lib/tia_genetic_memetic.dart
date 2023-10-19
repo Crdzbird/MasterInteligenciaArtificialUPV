@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:tia_genetic_memetic/algoritms/genetic.dart';
@@ -17,80 +18,62 @@ Future<void> main(List<String> arguments) async {
     await loadCityDistancesFromFile(AppConfig.distanceFile);
     executeAlgorithm();
   } catch (e) {
-    print(e);
+    log(e.toString());
   }
 }
 
 Future<void> loadCitiesFromFile(String path) async {
-  final file = File(path); // replace with your file path
+  final file = File(path);
 
   Stream<List<int>> inputStream = file.openRead();
 
   try {
     int lineCount = 0;
-    var lines = inputStream
-        .transform(utf8.decoder) // Decode bytes to UTF-8.
-        .transform(LineSplitter()); // Convert stream to individual lines.
+    var lines = inputStream.transform(utf8.decoder).transform(LineSplitter());
 
     await for (var line in lines) {
       lineCount++;
 
-      // Skip the first line if it's a header (or adjust according to how your CSV is structured)
       if (lineCount == 1) continue;
 
-      // Split the line using comma as a delimiter
       var row = line.split(',');
 
-      // Perform your processing with the row here
       City city = City(row[0], double.parse(row[1]), double.parse(row[2]));
       CityDao.create(city);
     }
   } catch (e) {
-    print(e.toString());
-    // Handle the exception, possibly by rethrowing or logging it
+    log(e.toString());
   }
 }
 
 Future<void> loadCityDistancesFromFile(String path) async {
   Graph cityGraph = Graph(CityDao.getAll().length);
 
-  final file = File(path); // replace with your file path
+  final file = File(path);
 
   Stream<List<int>> inputStream = file.openRead();
 
   try {
     int lineCount = 0;
-    var lines = inputStream
-        .transform(utf8.decoder) // Decode bytes to UTF-8.
-        .transform(LineSplitter()); // Convert stream to individual lines.
+    var lines = inputStream.transform(utf8.decoder).transform(LineSplitter());
 
     await for (var line in lines) {
       lineCount++;
-
-      // Skip the first line if it's a header (or adjust according to how your CSV is structured)
       if (lineCount == 1) continue;
-
-      // Split the line using comma as a delimiter
       var row = line.split(',');
-
-      // Perform your processing with the row here
       int from = CityDao.getIndex(CityDao.get(row[0])!);
       int to = CityDao.getIndex(CityDao.get(row[1])!);
       double distance = double.parse(row[3]);
       cityGraph.setDistance(from, to, distance);
     }
-
-    AppConfig.maxNumEdges =
-        lineCount - 2; // Adjust based on how you count the lines
+    AppConfig.maxNumEdges = lineCount - 2;
   } catch (e) {
-    print(e.toString());
-    // Handle the exception, possibly by rethrowing or logging it
+    log(e.toString());
   }
   cityGraph.calculateAllPaths();
   IndividualImplementation.distances =
       cityGraph.getFullConnectedGraph(1.0).getDistanceMatrix();
-  IndividualImplementation.originalGraph =
-      cityGraph; // Assuming IndividualImplementation is a global or static class
+  IndividualImplementation.originalGraph = cityGraph;
 }
 
 Future<void> executeAlgorithm() async {
@@ -98,8 +81,8 @@ Future<void> executeAlgorithm() async {
 
   IndividualImplementation greedy =
       IndividualImplementation.getGreedySolution(AppConfig.mainCity);
-  print(greedy.toString());
-  print("Best Initial Fitness model: ${greedy.getFitness()}");
+  log(greedy.toString());
+  log("Best Initial Fitness model: ${greedy.getFitness()}");
 
   List<IndividualImplementation> initialPopulation =
       buildInitialPopulation(greedy);
@@ -127,16 +110,11 @@ List<IndividualImplementation> buildInitialPopulation(
   return initialPopulation;
 }
 
-String generateFileName() {
-  return 'MAX_ITER(${AppConfig.maxIteration})-POP_SIZE(${AppConfig.popSize})-MAIN_CITY(${AppConfig.mainCity})-MEME_POP_RATE(${AppConfig.memePopRate})-TEMPERATURE(${AppConfig.temperature.toStringAsFixed(1)})-COOLING_RATE(${AppConfig.coolingRate.toStringAsFixed(1)}).csv';
-}
-
 void displayResults(
     PopulationInterface<IndividualImplementation> lastGeneration,
     double startTime) {
   final bestFitness = lastGeneration.retrieveBestIndividual().getFitness();
-  print('Fitness calls: ${AppConfig.fitnessCalls}');
-  print('Best fitness: $bestFitness');
-  print(
-      'Computation time (ms): ${DateTime.now().millisecondsSinceEpoch - startTime}');
+  log('Fitness calls: ${AppConfig.fitnessCalls}');
+  log('Best fitness: $bestFitness');
+  log('Computation time (ms): ${DateTime.now().millisecondsSinceEpoch - startTime}');
 }

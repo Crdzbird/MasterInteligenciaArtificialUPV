@@ -10,8 +10,6 @@ class PopulationCopy
       : super(initpop, elitism);
 
   @override
-  PopulationInterface<IndividualImplementation> copy() {
-    return PopulationCopy(
-        List<IndividualImplementation>.from(population), elitism);
-  }
+  PopulationInterface<IndividualImplementation> copy() =>
+      PopulationCopy(List<IndividualImplementation>.from(population), elitism);
 }

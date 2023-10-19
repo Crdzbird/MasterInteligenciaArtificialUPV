@@ -2,8 +2,7 @@ class Node<E> implements Comparable<Node<E>> {
   final E value;
   final double h;
   final double g;
-  final Node<E>?
-      parent; // In Dart, we need to specify if a variable can be null using "?"
+  final Node<E>? parent;
 
   Node(this.value, this.g, this.h, this.parent);
 
@@ -19,8 +18,7 @@ class Node<E> implements Comparable<Node<E>> {
 
   @override
   int compareTo(Node<E> other) {
-    return other.cost.compareTo(
-        cost); // Dart doesn't have a direct method for comparing doubles
+    return other.cost.compareTo(cost);
   }
 
   @override

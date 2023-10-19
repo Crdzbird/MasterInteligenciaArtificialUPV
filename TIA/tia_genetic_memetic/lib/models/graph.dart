@@ -6,10 +6,8 @@ import 'package:tia_genetic_memetic/models/path.dart';
 import 'package:tia_genetic_memetic/service/city_dao.dart';
 
 class Graph {
-  late List<List<double>>
-      distances; // 'late' indicates the variable is non-nullable but will be initialized later
-  final Map<Path, List<int>> paths =
-      SplayTreeMap(); // TreeMap in Java, closest in Dart is SplayTreeMap
+  late List<List<double>> distances;
+  final Map<Path, List<int>> paths = SplayTreeMap();
 
   Graph(int size) {
     distances =
@@ -53,15 +51,13 @@ class Graph {
       }
     }
 
-    // Assuming the trail is circular, connecting the last and the first cities
     int c1 = trail[trail.length - 1];
     int c2 = trail[0];
     List<int> lastPath = paths[Path(c1, c2)]!;
     for (int k = 0; k < lastPath.length - 1; k++) {
       if (!visited[lastPath[k]][lastPath[k + 1]]) {
         visited[lastPath[k]][lastPath[k + 1]] = true;
-        visited[lastPath[k + 1]][lastPath[k]] =
-            true; // Corrected here from `path` to `lastPath`
+        visited[lastPath[k + 1]][lastPath[k]] = true;
         visitedEdges++;
       }
     }
@@ -97,11 +93,9 @@ class Graph {
 
   double evaluatePath(List<int> path) {
     double cost = 0.0;
-
     for (int i = 0; i < path.length - 1; i++) {
       cost += getDistance(path[i], path[i + 1]);
     }
-
     return cost;
   }
 
@@ -123,7 +117,7 @@ class Graph {
       if (currentNode.value == end) {
         Node? solution = currentNode;
         while (solution != null) {
-          path.insert(0, solution.value); // adds to the beginning of the list
+          path.insert(0, solution.value);
           solution = solution.parent;
         }
         openList.clear();
@@ -176,8 +170,8 @@ class Graph {
   }
 
   List<List<double>> getDistanceMatrix() {
-    List<List<double>> dis = List.generate(distances.length,
-        (i) => List.from(distances[i])); // creates a copy of each row
+    List<List<double>> dis =
+        List.generate(distances.length, (i) => List.from(distances[i]));
 
     return dis;
   }

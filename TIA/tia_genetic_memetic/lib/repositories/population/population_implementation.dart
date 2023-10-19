@@ -8,8 +8,7 @@ abstract class PopulationImplementation<I extends IndividualInterface>
   final ElitismInterface<I> elitism;
 
   PopulationImplementation(List<I> initpop, this.elitism) {
-    this.population =
-        List<I>.from(initpop, growable: true); // Ensure encapsulation
+    this.population = List<I>.from(initpop, growable: true);
   }
 
   @override
@@ -39,12 +38,8 @@ abstract class PopulationImplementation<I extends IndividualInterface>
   }
 
   @override
-  List<I> getMembers() {
-    return List<I>.unmodifiable(population); // return an unmodifiable list view
-  }
+  List<I> getMembers() => List<I>.unmodifiable(population);
 
   @override
-  String toString() {
-    return 'PopulationImplementation{population=\$population}\\n\\n';
-  }
+  String toString() => 'PopulationImplementation{population=\$population}';
 }

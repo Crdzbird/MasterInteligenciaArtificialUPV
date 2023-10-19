@@ -20,8 +20,7 @@ class Path implements Comparable<Path> {
   }
 
   @override
-  int get hashCode =>
-      from.hashCode ^ to.hashCode; // XOR operation to combine hash codes
+  int get hashCode => from.hashCode ^ to.hashCode;
 
   @override
   int compareTo(Path other) {

@@ -25,42 +25,30 @@ class IndividualImplementation implements IndividualInterface<int> {
   }
 
   @override
-  List<int> getGenotype() {
-    return List.from(genotype);
-  }
+  List<int> getGenotype() => List.from(genotype);
 
   @override
   List<IndividualInterface<int>> getChildren(IndividualInterface<int> partner) {
     List<IndividualInterface<int>> children = [];
     int blockSize = Random().nextInt(7) + 1;
-
     List<int> p1 = List.from(genotype);
     List<int> p2 = List.from((partner as IndividualImplementation).genotype);
-
     IndividualImplementation child = IndividualImplementation._empty();
-
     bool useParent1 = true;
     for (int i = 0; i < child.genotype.length; i++) {
-      if (i % blockSize == 0) {
-        useParent1 = !useParent1;
-      }
+      if (i % blockSize == 0) useParent1 = !useParent1;
       int gene = useParent1 ? p1.removeAt(0) : p2.removeAt(0);
       p1.remove(gene);
       p2.remove(gene);
       child.genotype[i] = gene;
     }
-
     children.add(child);
     return children;
   }
 
-  // Placeholder for the remaining methods from the Java class
-  // They need to be implemented following the logic in the original Java class
-
   @override
   List<IndividualInterface<int>> getNeighborhood() {
     List<IndividualInterface<int>> neighborhood = [];
-
     for (int i = 1; i < genotype.length; i++) {
       for (int j = 1; j < genotype.length; j++) {
         if (i != j) {
@@ -74,19 +62,15 @@ class IndividualImplementation implements IndividualInterface<int> {
         }
       }
     }
-
     return neighborhood;
   }
 
   @override
-  bool isValid() {
-    return true; // If this is always true, you might consider removing this method.
-  }
+  bool isValid() => true;
 
   @override
   void mutate() {
-    Random random =
-        Random(); // Assuming AppConfig.RANDOM is a Java Random instance, we replace it with Dart's Random
+    Random random = Random();
     int mutations = random
             .nextInt((genotype.length / 10).clamp(1, genotype.length).toInt()) +
         1;
@@ -106,18 +90,15 @@ class IndividualImplementation implements IndividualInterface<int> {
 
   @override
   double getFitness() {
-    // Dart doesn't have a native 'float' type, so we use 'double'
     if (fitness < 0.0) {
-      AppConfig
-          .fitnessCalls++; // Assuming this static property exists and is public in your AppConfig class
+      AppConfig.fitnessCalls++;
       double cost = 0.0;
       for (int i = 0; i < genotype.length - 1; i++) {
         cost += distances[genotype[i]][genotype[i + 1]];
       }
       cost += distances[genotype[genotype.length - 1]][genotype[0]];
 
-      int? visitedEdges = originalGraph?.getVisitedEdges(
-          genotype); // This assumes the method exists and is correct
+      int? visitedEdges = originalGraph?.getVisitedEdges(genotype);
       fitness = cost /
           (visitedEdges == AppConfig.maxNumEdges
               ? (visitedEdges ?? 0) * 1000
@@ -142,9 +123,8 @@ class IndividualImplementation implements IndividualInterface<int> {
   }
 
   @override
-  int compareTo(IndividualInterface<int> o) {
-    return getFitness().compareTo(o.getFitness());
-  }
+  int compareTo(IndividualInterface<int> o) =>
+      getFitness().compareTo(o.getFitness());
 
   static IndividualImplementation getGreedySolution(int startCity) {
     IndividualImplementation ind = IndividualImplementation(startCity);
@@ -158,7 +138,6 @@ class IndividualImplementation implements IndividualInterface<int> {
   static int getClosestCityExcept(int city, List<int> except) {
     double minDistance = double.maxFinite;
     int closest = city;
-
     for (int i = 0; i < distances.length; i++) {
       if (!except.contains(i) && distances[city][i] < minDistance) {
         closest = i;
@@ -179,7 +158,6 @@ class IndividualImplementation implements IndividualInterface<int> {
   }
 
   @override
-  String toString() {
-    return 'Seed: 1633124807218,  Fitness: ${getFitness()}, Cities:  ${genotype.length},  CppIndividual{genotype=$genotype}';
-  }
+  String toString() =>
+      'Seed: 1633124807218,  Fitness: ${getFitness()}, Cities:  ${genotype.length},  CppIndividual{genotype=$genotype}';
 }

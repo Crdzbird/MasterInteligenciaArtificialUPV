@@ -12,8 +12,7 @@ abstract class IndividualInterface<E>
 
   void mutate();
 
-  double
-      getFitness(); // In Dart, there's no distinction between float and double, so we use double
+  double getFitness();
 
   IndividualInterface<E> copy();
 

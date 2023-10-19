@@ -29,16 +29,12 @@ class CityDao {
 
   static City? getAt(int index) {
     if (index < 0 || index >= _cities.length) {
-      return null; // or throw an exception
+      return null;
     }
     return _cities[index];
   }
 
-  static int getIndex(City c) {
-    return _cities.indexOf(c);
-  }
+  static int getIndex(City c) => _cities.indexOf(c);
 
-  static List<City> getAll() {
-    return List<City>.unmodifiable(_cities);
-  }
+  static List<City> getAll() => List<City>.unmodifiable(_cities);
 }
