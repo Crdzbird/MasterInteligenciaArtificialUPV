@@ -1,5 +1,6 @@
 {
   "name": "3d-product-configurator",
+  "homepage": "https://crdzbird.github.io/MasterInteligenciaArtificialUPV/GPG/3d_catalog",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -32,6 +33,7 @@
     "serve": "node server.js",
     "fix": "prettier -w \"src/**/*.{js,jsx}\"",
     "lint": "prettier --check \"src/**/*.{js,jsx}\"",
+    "predeploy": "yarn build",
     "deploy": "node_modules/.bin/deploy-gh-pages"
   },
   "browserslist": [

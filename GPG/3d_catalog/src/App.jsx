@@ -15,7 +15,7 @@ const App = () => {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <ThemeProvider theme={appTheme}>
-            <BrowserRouter>
+            <BrowserRouter basename="/GPG/3d_catalog">
               <Switch>
                 <Route exact path={ROUTE_HOMEPAGE} component={Home} />
               </Switch>
