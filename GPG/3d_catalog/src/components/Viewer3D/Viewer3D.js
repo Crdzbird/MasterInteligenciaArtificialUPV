@@ -48,14 +48,14 @@ function Viewer3D(props) {
     if (node && materialData) {
       node.material.name = materialData.name
 
-      //Color
+      
       if (materialData.color === "") {
         node.material.color.set(null)
       } else {
         node.material.color.set(materialData.color)
       }
 
-      //Albedo
+      
       if (materialData.map === "") {
         node.material.map = null
       } else {
@@ -67,7 +67,7 @@ function Viewer3D(props) {
         node.material.map = texture
       }
 
-      //Normal
+      
       if (materialData.normalMap === "") {
         node.material.normalMap = null
       } else {
@@ -84,7 +84,7 @@ function Viewer3D(props) {
         )
       }
 
-      //Bump
+      
       if (materialData.bumpMap === "") {
         node.material.bumpMap = null
       } else {
@@ -98,7 +98,7 @@ function Viewer3D(props) {
         node.material.bumpScale = materialData.bumpScale
       }
 
-      //Displacement
+      
       if (materialData.displacementMap === "") {
         node.material.displacementMap = null
       } else {
@@ -113,7 +113,7 @@ function Viewer3D(props) {
         node.material.displacementBias = materialData.displacementBias
       }
 
-      //Roughness
+      
       if (materialData.roughnessMap === "") {
         node.material.roughnessMap = null
       } else {
@@ -127,7 +127,7 @@ function Viewer3D(props) {
 
       node.material.roughness = materialData.roughness
 
-      //Metalness
+      
       if (materialData.metalnessMap !== "") {
         node.material.metalnessMap = null
       } else {
@@ -141,7 +141,7 @@ function Viewer3D(props) {
 
       node.material.metalness = materialData.metalness
 
-      //Alpha
+      
       if (materialData.alphaMap === "") {
         node.material.alphaMap = null
       } else {
@@ -155,7 +155,7 @@ function Viewer3D(props) {
 
       node.material.opacity = materialData.opacity
 
-      //AO
+      
       if (materialData.aoMap === "") {
         node.material.aoMap = null
       } else {
@@ -169,7 +169,7 @@ function Viewer3D(props) {
         node.material.aoMapIntensity = materialData.aoMapIntensity
       }
 
-      //Emissive
+      
       if (materialData.emissiveMap === "") {
         node.material.emissiveMap = null
       } else {
@@ -184,14 +184,14 @@ function Viewer3D(props) {
       }
       node.material.emissive.set(materialData.emissive)
 
-      //Env
+      
       node.material.envMapIntensity = materialData.envMapIntensity
 
       node.material.wireframe = materialData.wireframe
       node.material.transparent = materialData.transparent
       node.material.needsUpdate = true
 
-      //Set material to candidate meshes
+      
       node.children.forEach(child => {
         child.material = node.material
       })
@@ -228,7 +228,7 @@ function Viewer3D(props) {
      */
     const scene = new THREE.Scene()
     scene.background = new THREE.Color("#aeaeae")
-    // scene.fog = new THREE.Fog(0xa0a0a0, SPACE_SIZE * 0.9, SPACE_SIZE)
+    
     g_scene = scene
 
     scene.add(g_model_root)
@@ -242,8 +242,8 @@ function Viewer3D(props) {
     /**
      * Helper
      */
-    // const axisHelper = new THREE.AxesHelper(5)
-    // scene.add(axisHelper)
+    
+    
 
     const shadowPlane = ShadowPlane()
     scene.add(shadowPlane)
@@ -311,7 +311,7 @@ function Viewer3D(props) {
 
     canvasContainer.current.appendChild(renderer.domElement)
 
-    //Mouse&Touch event
+    
     function onMouseDown(event) {}
     function onMouseUp(event) {
       const pickedPoint = new THREE.Vector2(
@@ -367,10 +367,10 @@ function Viewer3D(props) {
     cameraController.maxAzimuthAngle = 180
     cameraController.dampingFactor = 0.05
     cameraController.screenSpacePanning = true
-    // cameraController.minDistance = 1
-    // cameraController.maxDistance = 500
-    // cameraController.minZoom = 1
-    // cameraController.maxZoom = 500
+    
+    
+    
+    
     cameraController.minPolarAngle = 1
     cameraController.maxPolarAngle = Math.PI / 1.5
     cameraController.enableDamping = true
@@ -412,7 +412,7 @@ function Viewer3D(props) {
     const textureLoader = new THREE.TextureLoader(gltfLoadingManager)
     g_texture_loader = textureLoader
 
-    //Load smaa images
+    
     const smaaImageLoader = new POSTPROCESSING.SMAAImageLoader(
       gltfLoadingManager
     )
@@ -428,7 +428,7 @@ function Viewer3D(props) {
       )
     })
 
-    //Load env map
+    
     g_rgbe_loader = new RGBELoader(gltfLoadingManager)
 
     /**
@@ -450,7 +450,7 @@ function Viewer3D(props) {
   useEffect(() => {
     setCurrentNodeData(null)
 
-    //Set env
+    
     if (productStore.productData) {
       g_rgbe_loader
         .setDataType(THREE.UnsignedByteType)
@@ -459,13 +459,13 @@ function Viewer3D(props) {
           pg.compileEquirectangularShader()
           const envMap = pg.fromEquirectangular(texture).texture
           g_scene.environment = envMap
-          // g_scene.background = envMap
+          
           texture.dispose()
           pg.dispose()
         })
     }
 
-    //Clear
+    
     g_model_root.children.forEach(node => {
       node.children.forEach(child => {
         child.geometry.dispose()
@@ -476,14 +476,14 @@ function Viewer3D(props) {
     })
     g_model_root.children = []
 
-    //Load models
+    
     if (productStore.productData) {
       g_is_load_model = true
       g_gltf_loader.load(
         productStore.productData[productStore.currentDracoVersion],
         gltf => {
           if (gltf.scene) {
-            //Get gltf mesh
+            
             const gltfMeshes = []
             gltf.scene.traverse(child => {
               if (child.type === "Mesh") {
@@ -492,7 +492,7 @@ function Viewer3D(props) {
               }
             })
 
-            //Generate the model structure
+            
             productStore.productData.nodes.forEach(node => {
               const pivot = new THREE.Object3D()
               pivot.name = node.id
@@ -506,14 +506,14 @@ function Viewer3D(props) {
               g_model_root.add(pivot)
             })
 
-            //Set data for selected mesh
+            
             const meshData = []
             productStore.productData.nodes.forEach(node => {
               meshData.push({nodeId: node.id, meshId: node.defaultMesh})
             })
             setSelectedMeshData(meshData)
 
-            //Set default material
+            
             g_model_root.children.forEach(child => {
               const material = new THREE.MeshStandardMaterial({
                 color: "#363636"
@@ -537,7 +537,7 @@ function Viewer3D(props) {
 
   useEffect(() => {
     if (g_selected_node) {
-      // g_selected_node.material.color.set(g_selected_node.originColor)
+      
       g_selected_node = null
       setSelectedMeshMaterial(null)
     }
@@ -548,12 +548,12 @@ function Viewer3D(props) {
       ) {
         g_selected_node = child
         setSelectedMeshMaterial(child.material.name)
-        // g_selected_node.originColor = new THREE.Color(
-        //   g_selected_node.material.color.r,
-        //   g_selected_node.material.color.g,
-        //   g_selected_node.material.color.b
-        // )
-        // g_selected_node.material.color.set(0xff0000)
+        
+        
+        
+        
+        
+        
       }
     })
     g_render_scene()
