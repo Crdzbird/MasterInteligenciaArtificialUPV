@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/MasterInteligenciaArtificialUPV/GPG/3d_catalog/static/css/main.83cea841.chunk.css",
+    "main.js": "/MasterInteligenciaArtificialUPV/GPG/3d_catalog/static/js/main.7692f201.chunk.js",
+    "main.js.map": "/MasterInteligenciaArtificialUPV/GPG/3d_catalog/static/js/main.7692f201.chunk.js.map",
+    "runtime-main.js": "/MasterInteligenciaArtificialUPV/GPG/3d_catalog/static/js/runtime-main.e72ec5dd.js",
+    "runtime-main.js.map": "/MasterInteligenciaArtificialUPV/GPG/3d_catalog/static/js/runtime-main.e72ec5dd.js.map",
+    "static/js/2.7fa60d99.chunk.js": "/MasterInteligenciaArtificialUPV/GPG/3d_catalog/static/js/2.7fa60d99.chunk.js",
+    "static/js/2.7fa60d99.chunk.js.map": "/MasterInteligenciaArtificialUPV/GPG/3d_catalog/static/js/2.7fa60d99.chunk.js.map",
+    "index.html": "/MasterInteligenciaArtificialUPV/GPG/3d_catalog/index.html",
+    "static/css/main.83cea841.chunk.css.map": "/MasterInteligenciaArtificialUPV/GPG/3d_catalog/static/css/main.83cea841.chunk.css.map",
+    "static/js/2.7fa60d99.chunk.js.LICENSE.txt": "/MasterInteligenciaArtificialUPV/GPG/3d_catalog/static/js/2.7fa60d99.chunk.js.LICENSE.txt",
+    "static/media/shader.00bfe510.vert": "/MasterInteligenciaArtificialUPV/GPG/3d_catalog/static/media/shader.00bfe510.vert",
+    "static/media/shader.d622c730.frag": "/MasterInteligenciaArtificialUPV/GPG/3d_catalog/static/media/shader.d622c730.frag"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e72ec5dd.js",
+    "static/js/2.7fa60d99.chunk.js",
+    "static/css/main.83cea841.chunk.css",
+    "static/js/main.7692f201.chunk.js"
+  ]
+}
