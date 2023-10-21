@@ -8,6 +8,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "deploy-gh-pages": "^1.0.0",
     "gsap": "^3.6.1",
     "postprocessing": "^6.21.3",
     "prettier": "2.2.1",
@@ -22,15 +23,16 @@
     "redux-devtools-extension": "^2.13.9",
     "redux-persist": "6.0.0",
     "redux-thunk": "^2.3.0",
-    "three": "0.127.0",
-    "styled-components": "^5.3.0"
+    "styled-components": "^5.3.0",
+    "three": "0.127.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
     "serve": "node server.js",
     "fix": "prettier -w \"src/**/*.{js,jsx}\"",
-    "lint": "prettier --check \"src/**/*.{js,jsx}\""
+    "lint": "prettier --check \"src/**/*.{js,jsx}\"",
+    "deploy": "node_modules/.bin/deploy-gh-pages"
   },
   "browserslist": [
     "Chrome >= 60",
