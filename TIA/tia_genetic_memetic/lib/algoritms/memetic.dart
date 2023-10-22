@@ -14,7 +14,7 @@ class Memetic<I extends IndividualInterface, P extends PopulationInterface<I>> {
       int iters, int memeticRate, double temperature, double coolingRate) {
     P p = population.copy() as P;
     for (int i = 0; i < iters; i++) {
-      p.evolve(5 % (1 + i).abs() == 0);
+      p.evolve(AppConfig.compactRate % (1 + i).abs() == 0);
       if (i % memeticRate == 0) {
         _applyMemeticOperations(p, temperature, coolingRate);
       }

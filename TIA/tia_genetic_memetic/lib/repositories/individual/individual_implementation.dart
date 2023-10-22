@@ -71,8 +71,9 @@ class IndividualImplementation implements IndividualInterface<int> {
   @override
   void mutate() {
     Random random = Random();
-    int mutations = random
-            .nextInt((genotype.length / 10).clamp(1, genotype.length).toInt()) +
+    int mutations = random.nextInt((genotype.length / AppConfig.populationSize)
+            .clamp(1, genotype.length)
+            .toInt()) +
         1;
     for (int k = 0; k < mutations; k++) {
       int i, j;

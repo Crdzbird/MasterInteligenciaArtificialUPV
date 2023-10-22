@@ -104,7 +104,7 @@ List<IndividualImplementation> buildInitialPopulation(
   greedy
       .getNeighborhood()
       .forEach((ind) => initialPopulation.add(ind as IndividualImplementation));
-  while (initialPopulation.length < AppConfig.popSize) {
+  while (initialPopulation.length < AppConfig.populationSize) {
     initialPopulation.add(IndividualImplementation(AppConfig.mainCity));
   }
   return initialPopulation;

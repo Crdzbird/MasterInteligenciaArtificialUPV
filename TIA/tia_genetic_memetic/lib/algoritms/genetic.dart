@@ -12,7 +12,7 @@ class Genetic<I extends IndividualInterface, P extends PopulationInterface<I>> {
   P execute(int iters) {
     P p = population.copy() as P;
     for (int i = 0; i < iters; i++) {
-      p.evolve(5 % (1 + i).abs() == 0);
+      p.evolve(AppConfig.compactRate % (1 + i).abs() == 0);
       reportProgress(p, i, iters);
     }
     log('LAST POPULATION: ${p.retrieveBestIndividual()}');
@@ -23,8 +23,8 @@ class Genetic<I extends IndividualInterface, P extends PopulationInterface<I>> {
     P p = population.copy() as P;
     P mp = memeticPopulation!.copy() as P;
     for (int i = 0; i < iters; i++) {
-      p.evolve(5 % (1 + i).abs() == 0);
-      mp.evolve(5 % (1 + i).abs() == 0);
+      p.evolve(AppConfig.compactRate % (1 + i).abs() == 0);
+      mp.evolve(AppConfig.compactRate % (1 + i).abs() == 0);
       reportProgressWithMemetic(p, mp, i, iters);
     }
     log('LAST POPULATION: ${p.retrieveBestIndividual()}');
@@ -38,7 +38,7 @@ class Genetic<I extends IndividualInterface, P extends PopulationInterface<I>> {
 
   void reportProgressWithMemetic<T>(PopulationInterface<I> p,
       PopulationInterface<I> mp, int iteration, int total) {
-    if (iteration % AppConfig.popSize == 0 || iteration == total - 1) {
+    if (iteration % AppConfig.populationSize == 0 || iteration == total - 1) {
       IndividualInterface best = p.retrieveBestIndividual();
       IndividualInterface bestMP = mp.retrieveBestIndividual();
       log('Iteration: $iteration/$total - Genetic: $best, Memetic: $bestMP');
