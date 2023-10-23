@@ -17,18 +17,14 @@ class Node<E> implements Comparable<Node<E>> {
   double get getG => g;
 
   @override
-  int compareTo(Node<E> other) {
-    return other.cost.compareTo(cost);
-  }
+  int compareTo(Node<E> other) => other.cost.compareTo(cost);
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-
     if (other is Node<E>) {
       return value == other.value;
     }
-
     return false;
   }
 

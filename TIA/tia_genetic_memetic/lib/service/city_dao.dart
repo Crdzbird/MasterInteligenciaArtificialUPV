@@ -20,17 +20,13 @@ class CityDao {
 
   static City? get(String name) {
     for (City city in _cities) {
-      if (city.name == name) {
-        return city;
-      }
+      if (city.name == name) return city;
     }
     return null;
   }
 
   static City? getAt(int index) {
-    if (index < 0 || index >= _cities.length) {
-      return null;
-    }
+    if (index < 0 || index >= _cities.length) return null;
     return _cities[index];
   }
 

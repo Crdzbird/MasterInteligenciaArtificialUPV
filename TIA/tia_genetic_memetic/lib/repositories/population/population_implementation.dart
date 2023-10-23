@@ -19,9 +19,7 @@ abstract class PopulationImplementation<I extends IndividualInterface>
   }
 
   @override
-  void sort() {
-    population.sort();
-  }
+  void sort() => population.sort();
 
   @override
   I retrieveBestIndividual() {

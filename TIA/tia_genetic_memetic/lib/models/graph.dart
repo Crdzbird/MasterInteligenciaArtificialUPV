@@ -61,7 +61,6 @@ class Graph {
         visitedEdges++;
       }
     }
-
     return visitedEdges;
   }
 
@@ -73,9 +72,7 @@ class Graph {
         g.setDistance(i, j, getDistance(i, j));
       }
     }
-
     g.fullConnect(bias);
-
     return g;
   }
 
@@ -169,15 +166,9 @@ class Graph {
     return conn;
   }
 
-  List<List<double>> getDistanceMatrix() {
-    List<List<double>> dis =
-        List.generate(distances.length, (i) => List.from(distances[i]));
-
-    return dis;
-  }
+  List<List<double>> getDistanceMatrix() =>
+      List.generate(distances.length, (i) => List.from(distances[i]));
 
   @override
-  String toString() {
-    return 'Graph{distances: \$distances, paths: \$paths}';
-  }
+  String toString() => 'Graph{distances: \$distances, paths: \$paths}';
 }

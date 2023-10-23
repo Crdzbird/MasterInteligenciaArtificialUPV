@@ -11,11 +11,9 @@ class Path implements Comparable<Path> {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-
     if (other is Path) {
       return from == other.from && to == other.to;
     }
-
     return false;
   }
 

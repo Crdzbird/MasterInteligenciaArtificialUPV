@@ -17,23 +17,16 @@ class City implements Comparable<City> {
     return math.sqrt(dx * dx + dy * dy);
   }
 
-  static double manhattanDistance(City c1, City c2) {
-    return (c1.x - c2.x).abs() + (c1.y - c2.y).abs();
-  }
+  static double manhattanDistance(City c1, City c2) =>
+      (c1.x - c2.x).abs() + (c1.y - c2.y).abs();
 
   @override
-  int compareTo(City other) {
-    return name.compareTo(other.name);
-  }
+  int compareTo(City other) => name.compareTo(other.name);
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-
-    if (other is City) {
-      return name == other.name;
-    }
-
+    if (other is City) return name == other.name;
     return false;
   }
 
@@ -41,7 +34,5 @@ class City implements Comparable<City> {
   int get hashCode => name.hashCode;
 
   @override
-  String toString() {
-    return 'City {name: $name, x: $x, y: $y}';
-  }
+  String toString() => 'City {name: $name, x: $x, y: $y}';
 }
